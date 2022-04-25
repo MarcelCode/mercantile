@@ -9,9 +9,9 @@ const RE = 6378137.0
 const CE = 2 * math.Pi * RE
 
 type Tile struct {
-	X float64
-	Y float64
-	Z float64
+	X int
+	Y int
+	Z int
 }
 
 type Bbox struct {
@@ -30,23 +30,23 @@ func DegToRadians(degrees float64) float64 {
 }
 
 func Ul(tile Tile) (lng, lat float64) {
-	Z2 := math.Pow(2, tile.Z)
+	Z2 := math.Pow(2, float64(tile.Z))
 
-	lng = tile.X/Z2*360.0 - 180.0
-	lat = RadToDegrees(math.Atan(math.Sinh(math.Pi * (1 - 2*tile.Y/Z2))))
+	lng = float64(tile.X)/Z2*360.0 - 180.0
+	lat = RadToDegrees(math.Atan(math.Sinh(math.Pi * (1 - 2*float64(tile.Y)/Z2))))
 
 	return
 }
 
 func Bounds(tile Tile) Bbox {
-	Z2 := math.Pow(2, tile.Z)
+	Z2 := math.Pow(2, float64(tile.Z))
 
-	ulLonDeg := tile.X/Z2*360.0 - 180.0
-	ulLatRad := math.Atan(math.Sinh(math.Pi * (1 - 2*tile.Y/Z2)))
+	ulLonDeg := float64(tile.X)/Z2*360.0 - 180.0
+	ulLatRad := math.Atan(math.Sinh(math.Pi * (1 - 2*float64(tile.Y)/Z2)))
 	ulLatDeg := RadToDegrees(ulLatRad)
 
-	lrLonDeg := (tile.X+1)/Z2*360.0 - 180.0
-	lrLatRad := math.Atan(math.Sinh(math.Pi * (1 - 2*(tile.Y+1)/Z2)))
+	lrLonDeg := (float64(tile.X)+1)/Z2*360.0 - 180.0
+	lrLatRad := math.Atan(math.Sinh(math.Pi * (1 - 2*(float64(tile.Y)+1)/Z2)))
 	lrLatDeg := RadToDegrees(lrLatRad)
 
 	return Bbox{ulLonDeg, lrLatDeg, lrLonDeg, ulLatDeg}
@@ -74,10 +74,10 @@ func LngLat(x, y float64) (lng, lat float64) {
 }
 
 func XyBounds(tile Tile) Bbox {
-	tileSize := CE / math.Pow(2, tile.Z)
-	west := tile.X*tileSize - CE/2
+	tileSize := CE / math.Pow(2, float64(tile.Z))
+	west := float64(tile.X)*tileSize - CE/2
 	east := west + tileSize
-	north := CE/2 - tile.Y*tileSize
+	north := CE/2 - float64(tile.Y)*tileSize
 	south := north - tileSize
 
 	return Bbox{west, south, east, north}
