@@ -26,7 +26,7 @@ func TestBounds(t *testing.T) {
 	testTile := Tile{486, 332, 10}
 
 	result := Bounds(testTile)
-	expected := Bbox{-9.140625, 53.12040528310657, -8.7890625, 53.330872983017045}
+	expected := LngLatBbox{-9.140625, 53.12040528310657, -8.7890625, 53.330872983017045}
 
 	AssertEqual(t, result, expected)
 }
