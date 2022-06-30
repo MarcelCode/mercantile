@@ -3,4 +3,4 @@
 This project is a [port](https://github.com/mapbox/mercantile
 ) from a mercantile implementation in python.
 
-Only some parts of the methods are ported. For examples please check mercantile_test.go
+Only some methods are ported. For examples please check mercantile_test.go
