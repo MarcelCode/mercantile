@@ -1,6 +1,7 @@
 package mercantile
 
 import (
+	"math"
 	"reflect"
 	"testing"
 )
@@ -26,7 +27,7 @@ func TestBounds(t *testing.T) {
 	testTile := Tile{486, 332, 10}
 
 	result := Bounds(testTile)
-	expected := LngLatBbox{-9.140625, 53.12040528310657, -8.7890625, 53.330872983017045}
+	expected := Bbox{-9.140625, 53.12040528310657, -8.7890625, 53.330872983017045}
 
 	AssertEqual(t, result, expected)
 }
@@ -36,6 +37,26 @@ func TestXy(t *testing.T) {
 
 	resultX, resultY := Xy(lng, lat)
 	expectedX, expectedY := -1017529.7205322663, 7044436.526761846
+
+	AssertEqual(t, resultX, expectedX)
+	AssertEqual(t, resultY, expectedY)
+}
+
+func TestXyInfiniteOne(t *testing.T) {
+	lng, lat := -9.140625, 90.33087298301705
+
+	resultX, resultY := Xy(lng, lat)
+	expectedX, expectedY := -1017529.7205322663, math.Inf(1)
+
+	AssertEqual(t, resultX, expectedX)
+	AssertEqual(t, resultY, expectedY)
+}
+
+func TestXyInfiniteZero(t *testing.T) {
+	lng, lat := -9.140625, -90.33087298301705
+
+	resultX, resultY := Xy(lng, lat)
+	expectedX, expectedY := -1017529.7205322663, math.Inf(0)
 
 	AssertEqual(t, resultX, expectedX)
 	AssertEqual(t, resultY, expectedY)

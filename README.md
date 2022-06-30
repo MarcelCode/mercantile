@@ -1,6 +1,6 @@
-# Mercantile
-Golang Spherical mercator tile and coordinate utilities 
+# Mercantile - Simple Conversion of points to tile x,y,z.
 
-It is a copy of [Mapbox Mercantile](https://github.com/mapbox/mercantile) written in Python
+This project is a [port](https://github.com/mapbox/mercantile
+) from a mercantile implementation in python.
 
-Currently, not all methods are copied, but hopefully I will manage to do it in the future. 
+Only some parts of the methods are ported. For examples please check mercantile_test.go

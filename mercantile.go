@@ -23,14 +23,6 @@ type Bbox struct {
 	MaxY float64
 }
 
-// LngLatBbox A geographic bounding box
-type LngLatBbox struct {
-	MinLng float64
-	MinLat float64
-	MaxLng float64
-	MaxLat float64
-}
-
 func radToDegrees(radians float64) float64 {
 	return radians * (180 / math.Pi)
 }
@@ -50,7 +42,7 @@ func Ul(tile Tile) (lng, lat float64) {
 }
 
 // Bounds Returns the bounding box of a tile
-func Bounds(tile Tile) LngLatBbox {
+func Bounds(tile Tile) Bbox {
 	Z2 := math.Pow(2, float64(tile.Z))
 
 	minLngDeg := float64(tile.X)/Z2*360.0 - 180.0
@@ -61,7 +53,7 @@ func Bounds(tile Tile) LngLatBbox {
 	minLatRad := math.Atan(math.Sinh(math.Pi * (1 - 2*(float64(tile.Y)+1)/Z2)))
 	minLatDeg := radToDegrees(minLatRad)
 
-	return LngLatBbox{minLngDeg, minLatDeg, maxLngDeg, maxLatDeg}
+	return Bbox{minLngDeg, minLatDeg, maxLngDeg, maxLatDeg}
 }
 
 // Xy Convert longitude, latitude to web mercator x, y
