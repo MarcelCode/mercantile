@@ -1,6 +1,7 @@
 package mercantile
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -21,6 +22,15 @@ type Bbox struct {
 	MinY float64
 	MaxX float64
 	MaxY float64
+}
+
+func (bbox *Bbox) AsString() (StrMinX string, StrMinY string, StrMaxX string, StrMaxY string) {
+	StrMinX = fmt.Sprintf("%f", bbox.MinX)
+	StrMinY = fmt.Sprintf("%f", bbox.MinY)
+	StrMaxX = fmt.Sprintf("%f", bbox.MaxX)
+	StrMaxY = fmt.Sprintf("%f", bbox.MaxY)
+
+	return
 }
 
 func radToDegrees(radians float64) float64 {
