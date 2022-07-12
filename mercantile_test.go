@@ -81,3 +81,14 @@ func TestXyBounds(t *testing.T) {
 
 	AssertEqual(t, resultBbox, expectedBbox)
 }
+
+func TestBbox_AsString(t *testing.T) {
+	bbox := Bbox{-9.140625, 53.12040528310657, -8.7890625, 53.330872983017045}
+
+	strMinX, strMinY, strMaxX, strMaxY := bbox.AsString()
+
+	AssertEqual(t, strMinX, "-9.140625")
+	AssertEqual(t, strMinY, "53.120405")
+	AssertEqual(t, strMaxX, "-8.789062")
+	AssertEqual(t, strMaxY, "53.330873")
+}
