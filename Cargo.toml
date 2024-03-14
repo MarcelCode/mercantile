@@ -2,7 +2,12 @@
 name = "mercantile"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Marcel <siegmann@eomap.de>"]
+rust-version = "1.76.0"
+description = "Mercantile is a Rust library providing utility functions for working with geographical coordinates, web mercator projected coordinates, and map tiles."
+repository = "https://github.com/MarcelCode/mercantile"
+license-file = "LICENSE.txt"
+keywords = ["xyz", "tile", "geospatial", "webmapping"]
+publish = ["mercantile"]
 
 [dependencies]
