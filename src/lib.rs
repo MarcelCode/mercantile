@@ -34,6 +34,11 @@
 //! let xy_coordinates = XY { x: -1017529.7205322663, y: 7044436.526761846 };
 //! let lng_lat = convert_lng_lat(xy_coordinates);
 //! println!("LngLat coordinates: {:?}", lng_lat);
+//!
+//!
+//!  // Get neighbor tiles
+//! let neighbors = get_neighbors(tile);
+//! println!("Neighbor tiles: {:?}", neighbors);
 //! ```
 //!
 
@@ -174,6 +179,36 @@ pub fn convert_lng_lat(xy: XY) -> LngLat {
     LngLat { lng, lat }
 }
 
+/// The neighbors of a tile
+pub fn get_neighbors(tile: Tile) -> Vec<Tile> {
+    let mut tiles = Vec::new();
+
+    let (_, hi) = minmax(tile.z);
+
+    for i in [-1, 0, 1].iter() {
+        for j in [-1, 0, 1].iter() {
+            let (i, j) = (*i, *j);
+            if i == 0 && j == 0 {
+                continue;
+            } else if tile.x + i < 0 || tile.y + j < 0 {
+                continue;
+            } else if tile.x + i > hi || tile.y + j > hi {
+                continue;
+            }
+            tiles.push(Tile::new(tile.x + i, tile.y + j, tile.z));
+        }
+    }
+
+    fn valid(tile: &Tile) -> bool {
+        let validx = 0 <= tile.x && tile.x <= 2_i32.pow(tile.z as u32) - 1;
+        let validy = 0 <= tile.y && tile.y <= 2_i32.pow(tile.z as u32) - 1;
+        let validz = 0 <= tile.z;
+        validx && validy && validz
+    }
+
+    tiles.into_iter().filter(|t| valid(t)).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -247,6 +282,26 @@ mod tests {
         let xy = XY { x: -1017529.7205322663, y: 7044436.526761846 };
         let result = convert_lng_lat(xy);
         let expected = LngLat { lng: -9.140625000000002, lat: 53.33087298301706 };
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_get_neighbors() {
+        let tile = Tile::new(486, 332, 10);
+
+        let result = get_neighbors(tile);
+
+        let expected = vec![
+            Tile::new(485, 331, 10),
+            Tile::new(485, 332, 10),
+            Tile::new(485, 333, 10),
+            Tile::new(486, 331, 10),
+            Tile::new(486, 333, 10),
+            Tile::new(487, 331, 10),
+            Tile::new(487, 332, 10),
+            Tile::new(487, 333, 10),
+        ];
+
         assert_eq!(result, expected);
     }
 }
