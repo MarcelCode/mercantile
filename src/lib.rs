@@ -200,10 +200,10 @@ pub fn get_neighbors(tile: Tile) -> Vec<Tile> {
     }
 
     fn valid(tile: &Tile) -> bool {
-        let validx = 0 <= tile.x && tile.x <= 2_i32.pow(tile.z as u32) - 1;
-        let validy = 0 <= tile.y && tile.y <= 2_i32.pow(tile.z as u32) - 1;
-        let validz = 0 <= tile.z;
-        validx && validy && validz
+        let valid_x = 0 <= tile.x && tile.x <= 2_i32.pow(tile.z as u32) - 1;
+        let valid_y = 0 <= tile.y && tile.y <= 2_i32.pow(tile.z as u32) - 1;
+        let valid_z = 0 <= tile.z;
+        valid_x && valid_y && valid_z
     }
 
     tiles.into_iter().filter(|t| valid(t)).collect()
