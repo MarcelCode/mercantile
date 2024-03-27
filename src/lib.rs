@@ -179,7 +179,7 @@ pub fn convert_lng_lat(xy: XY) -> LngLat {
     LngLat { lng, lat }
 }
 
-/// The neighbors of a tile
+/// Get neighbor tiles for specific tiles
 pub fn get_neighbors(tile: Tile) -> Vec<Tile> {
     let mut tiles = Vec::new();
 
