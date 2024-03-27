@@ -1,6 +1,6 @@
 [package]
 name = "mercantile"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
 authors = ["Marcel <siegmann@eomap.de>"]
 rust-version = "1.76.0"
