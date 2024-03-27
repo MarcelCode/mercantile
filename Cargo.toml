@@ -8,6 +8,5 @@ description = "Mercantile is a Rust library providing utility functions for work
 repository = "https://github.com/MarcelCode/mercantile"
 license-file = "LICENSE.txt"
 keywords = ["xyz", "tile", "geospatial", "webmapping"]
-publish = ["mercantile"]
 
 [dependencies]
